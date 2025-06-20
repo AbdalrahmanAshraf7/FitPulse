@@ -11,15 +11,17 @@ import { useNotifications } from "../../Context/NotificationsContext.jsx";
 
 
 
+
 export default function Signup() {
     const [sucess, setsucess] = useState(null)
       const [loading, setloading] = useState(false)
     const [faild, setfail] = useState(null)
-    const [token, setToken] = useState(null)
+    const [token1, setToken1] = useState(null)
       const { ResultsN,setResultsN,getNotifications} = useNotifications();
     const [toggle, setToggle] = useState(false)
     const [toggle2, setToggle2] = useState(false)
-const { setGetToken } = useContext(UserContext);
+const { token, setToken, userData ,setGetToken, GetToken } = useContext(UserContext); 
+
     let nav = useNavigate()
         const { cart, deleteFromCart,getCart,Results,setResults } = useCart();
 
@@ -35,7 +37,7 @@ const { setGetToken } = useContext(UserContext);
             let res = await axios.post("https://fit-app-pink-omega.vercel.app/api/v1/auth/login", values)
             console.log(res.data.token)
             setsucess(res?.data?.message)
-            setToken(res?.data?.token)
+            setToken1(res?.data?.token)
             localStorage.setItem("token", res?.data?.token)
             setGetToken(res?.data?.token)
              setloading(false)

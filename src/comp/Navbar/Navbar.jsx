@@ -2,6 +2,7 @@
 import { Link, NavLink, useNavigate } from 'react-router-dom'
 import { useCart } from "../../Context/CartContext";
 import { useNotifications } from "../../Context/NotificationsContext.jsx";
+import { UserContext } from "../../Context/Usercontext.jsx";
 import axios from 'axios'
 import { toast } from "react-toastify";
 import { useFormik } from 'formik';
@@ -21,6 +22,10 @@ export default function Navbar() {
   const [HiddenForm, setHiddenForm] = useState("hidden")
   const { cart, deleteFromCart,getCart,Results,setResults,setCart } = useCart();
   const { ResultsN,setResultsN,getNotifications} = useNotifications();
+const { token, setToken, userData ,setGetToken, GetToken } = useContext(UserContext); 
+
+
+console.log(GetToken,"NAAAAAAAAAAAAAAV token")
 
 
 
@@ -260,16 +265,16 @@ const formik = useFormik({
           <NavLink to="home" className="font-bold  block py-2 px-3 text-white rounded-sm aria-[current=page]:bg-red-600 md:p-0  md:aria-[current=page]:bg-transparent md:aria-[current=page]:text-red-600 " onClick={()=>setToggle(true)}>Home</NavLink>
         </li>
        
-        <li>
+        {GetToken && <li>
           <NavLink to="products" className="block font-bold  py-2 px-3 text-white rounded-sm aria-[current=page]:bg-red-600 md:p-0  md:aria-[current=page]:bg-transparent md:aria-[current=page]:text-red-600" onClick={()=>setToggle(true)}><p className='flex gap-1'> <span>Products</span>  <span></span> </p></NavLink>
-        </li>
-        <li>
+        </li> }
+     {GetToken&&    <li>
           <NavLink to="exercises" className="block font-bold  py-2 px-3 text-white rounded-sm aria-[current=page]:bg-red-600 md:p-0  md:aria-[current=page]:bg-transparent md:aria-[current=page]:text-red-600" onClick={()=>setToggle(true)}>Exercises</NavLink>
-        </li>
+        </li>}
        
 
 
-
+{GetToken &&
         <li className='bg-black cursor-pointer' onClick={()=>toggleRequiem2()}>
           <div  to="" id="dropdownNavbarLink" data-dropdown-toggle="dropdownNavbar" className="flex items-center justify-between w-full py-2 px-3  md:hover:bg-transparent md:border-0  md:p-0 md:w-auto  text-white aria-[current=page]:bg-yellow-600 md:aria-[current=page]:bg-transparent  hover:bg-yellow-600 font-bold "  ><p className='flex hover:text-red-600 '> <span>Work</span><span>out</span> </p> <svg className="w-2.5 h-2.5 ms-2.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
               <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="m1 1 4 4 4-4" />
@@ -314,9 +319,9 @@ const formik = useFormik({
               
             </div>
           </div>
-        </li>
+        </li>}
 
-        <li className='bg-black cursor-pointer' onClick={()=>toggleRequiem()}>
+       {GetToken&& <li className='bg-black cursor-pointer' onClick={()=>toggleRequiem()}>
           <div  to="" id="dropdownNavbarLink" data-dropdown-toggle="dropdownNavbar" className="flex items-center justify-between w-full py-2 px-3  md:hover:bg-transparent md:border-0  md:p-0 md:w-auto  text-white aria-[current=page]:bg-yellow-600 md:aria-[current=page]:bg-transparent  hover:bg-yellow-600 font-bold "  ><p className='flex gap-1 hover:text-red-600'> <span>Other</span>  <span>Features</span> </p> <svg className="w-2.5 h-2.5 ms-2.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
               <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="m1 1 4 4 4-4" />
             </svg></div>
@@ -336,7 +341,7 @@ const formik = useFormik({
             </div>
           </div>
           
-        </li>
+        </li>}
 
         </div>
 
