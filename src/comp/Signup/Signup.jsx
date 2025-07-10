@@ -1,16 +1,19 @@
 import axios from 'axios'
 import { useFormik } from 'formik'
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { Link, Navigate, useNavigate } from 'react-router-dom'
+import {UserContext} from "../../Context/Usercontext.jsx"
+
 import * as Yup from "yup"
 
 
 export default function Signup() {
     const [sucess, setSucess] = useState(null)
     const [loading, setloading] = useState(false)
+    const { token, setToken, userData ,setGetToken, GetToken } = useContext(UserContext); 
+    
     
     const [faild, setFaild] = useState(null)
-    const [token, setToken] = useState(null)
     const [toggle, setToggle] = useState(false)
     const [toggle2, setToggle2] = useState(false)
     let nav = useNavigate()
@@ -22,6 +25,8 @@ export default function Signup() {
             let res = await axios.post("https://fit-app-pink-omega.vercel.app/api/v1/auth/signup", values)
             console.log(res.data.token)
              setloading(false)
+             setGetToken(res?.data?.token)
+
 
             setSucess(res?.data?.message)
             setToken(res?.data?.token)

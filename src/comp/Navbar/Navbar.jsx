@@ -111,6 +111,7 @@ function LogOut (){
    setResults(null)
    setResultsN(null)
    setCart(null)
+   setGetToken(null)
 
 
 }
